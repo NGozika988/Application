@@ -27,17 +27,17 @@ class CalculatorApp(App):
             layout.add_widget(h_layout)
 
         # Add Facebook icon button
-        facebook_button = Button(background_normal="facebook_icon.png", size_hint=(None, None), size=(50, 50))
+        facebook_button = Button(background_normal="facebook_icon.jpeg", size_hint=(None, None), size=(50, 50))
         facebook_button.bind(on_press=self.on_facebook_like)
         layout.add_widget(facebook_button)
 
         # Add Instagram icon button
-        instagram_button = Button(background_normal="instagram_icon.png", size_hint=(None, None), size=(50, 50))
+        instagram_button = Button(background_normal="instagram_icon.jpeg", size_hint=(None, None), size=(50, 50))
         instagram_button.bind(on_press=self.on_instagram_like)
         layout.add_widget(instagram_button)
 
         # Add YouTube icon button
-        youtube_button = Button(background_normal="youtube_icon.png", size_hint=(None, None), size=(50, 50))
+        youtube_button = Button(background_normal="youtube_icon.jpeg", size_hint=(None, None), size=(50, 50))
         youtube_button.bind(on_press=self.on_youtube_like)
         layout.add_widget(youtube_button)
 
