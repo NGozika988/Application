@@ -3,6 +3,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 
+
 class CalculatorApp(App):
 
     def build(self):
@@ -26,37 +27,46 @@ class CalculatorApp(App):
                 h_layout.add_widget(button)
             layout.add_widget(h_layout)
 
-        # Add Facebook icon button
-        facebook_button = Button(background_normal="facebook_icon.jpeg", size_hint=(None, None), size=(50, 50))
-        facebook_button.bind(on_press=self.on_facebook_like)
-        layout.add_widget(facebook_button)
-
-        # Add Instagram icon button
-        instagram_button = Button(background_normal="instagram_icon.jpeg", size_hint=(None, None), size=(50, 50))
-        instagram_button.bind(on_press=self.on_instagram_like)
-        layout.add_widget(instagram_button)
-
-        # Add YouTube icon button
-        youtube_button = Button(background_normal="youtube_icon.jpeg", size_hint=(None, None), size=(50, 50))
-        youtube_button.bind(on_press=self.on_youtube_like)
-        layout.add_widget(youtube_button)
+        donate_button = Button(text="Donate", pos_hint={"center_x": 0.5, "center_y": 0.5})
+        donate_button.bind(on_press=self.on_donate)
+        layout.add_widget(donate_button)
 
         equals_button = Button(text="=", pos_hint={"center_x": 0.5, "center_y": 0.5})
         equals_button.bind(on_press=self.on_solution)
         layout.add_widget(equals_button)
         return layout
 
-    # Other functions (on_button_press, on_solution) remain unchanged
+    def on_button_press(self, instance):
+        current = self.result.text
+        button_text = instance.text
 
-    def on_facebook_like(self, instance):
-        self.result.text = "Liked on Facebook!"
+        if button_text == "C":
+            self.result.text = ""
+        else:
+            if current and (self.last_was_operator and button_text in self.operators):
+                return
+            elif current == "" and button_text in self.operators:
+                return
+            else:
+                new_text = current + button_text
+                self.result.text = new_text
 
-    def on_instagram_like(self, instance):
-        self.result.text = "Liked on Instagram!"
+        self.last_button = instance
+        self.last_was_operator = button_text in self.operators
 
-    def on_youtube_like(self, instance):
-        self.result.text = "Liked on YouTube!"
+    def on_solution(self, instance):
+        text = self.result.text
+        try:
+            solution = str(eval(self.result.text))
+            self.result.text = solution
+        except:
+            self.result.text = "Error"
 
-if __name__ == "__main__":
+    def on_donate(self, instance):
+        account_info = "Bank Name: Palmpay\nYour Name: Chibike Michael \nAccount Number: 9125699439"
+        self.result.text = account_info
+
+
+if _name_ == "_main_":
     app = CalculatorApp()
     app.run()
